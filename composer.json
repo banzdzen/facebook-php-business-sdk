@@ -11,9 +11,12 @@
       "page"
     ],
     "homepage": "https://developers.facebook.com/",
+    "require" : {
+      "ext-curl": "*"
+    },
     "require-dev" : {
         "phpunit/phpunit": "~4.6",
-        "symfony/finder": "~2.6"
+        "symfony/finder": "~2.6",
     },
     "autoload": {
         "psr-4": {
