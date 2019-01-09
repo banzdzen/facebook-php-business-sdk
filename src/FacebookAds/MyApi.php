@@ -31,6 +31,7 @@ class MyApi extends Api
         )));
         $client->setAdapter($curlAdapter);
         $api = new static($client, $session);
+        self::setInstance($api);
         return $api;
     }
 
