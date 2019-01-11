@@ -20,15 +20,18 @@ class MyApi extends Api
             'Accept-Encoding' => '*',
         )));
         $curlAdapter = new CurlAdapter($client);
-        $curlAdapter->setOpts(new \ArrayObject(array(
+        $opts = array(
             CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_TIMEOUT => 60,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
-            CURLOPT_CAINFO => $curlAdapter->getCaBundlePath(),
-            CURLOPT_PROXY => $socks,
-            CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5_HOSTNAME,
-        )));
+            CURLOPT_CAINFO => $curlAdapter->getCaBundlePath()
+        );
+        if($socks) {
+            $opts[CURLOPT_PROXY] = $socks;
+            $opts[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5_HOSTNAME;
+        }
+        $curlAdapter->setOpts(new \ArrayObject($opts));
         $client->setAdapter($curlAdapter);
         $api = new static($client, $session);
         self::setInstance($api);
